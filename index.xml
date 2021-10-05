@@ -5,7 +5,8 @@
     <link>https://www.opskur.com/</link>
     <description>Recent content on Kur</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-cn</language><atom:link href="https://www.opskur.com/index.xml" rel="self" type="application/rss+xml" />
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 05 Oct 2015 15:09:01 +0800</lastBuildDate><atom:link href="https://www.opskur.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://www.opskur.com/about/</link>
@@ -15,6 +16,15 @@
       <description>Hugo is a static site engine written in Go.
 It makes use of a variety of open source projects including:
  Cobra Viper J Walter Weatherman Cast  Learn more and contribute on GitHub.</description>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://www.opskur.com/post/hello-world/</link>
+      <pubDate>Mon, 05 Oct 2015 15:09:01 +0800</pubDate>
+      
+      <guid>https://www.opskur.com/post/hello-world/</guid>
+      <description></description>
     </item>
     
   </channel>
