@@ -6,7 +6,7 @@
     <description>Recent content on Kur</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 05 Oct 2015 15:09:01 +0800</lastBuildDate><atom:link href="https://www.opskur.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 09 Nov 2015 20:47:05 +0800</lastBuildDate><atom:link href="https://www.opskur.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>https://www.opskur.com/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>https://www.opskur.com/about/</guid>
       <description>关于本站</description>
+    </item>
+    
+    <item>
+      <title>利用sysbench做性能测试</title>
+      <link>https://www.opskur.com/post/sysbench_performance_test/</link>
+      <pubDate>Mon, 09 Nov 2015 20:47:05 +0800</pubDate>
+      
+      <guid>https://www.opskur.com/post/sysbench_performance_test/</guid>
+      <description>&lt;p&gt;sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。&lt;/p&gt;</description>
     </item>
     
     <item>
