@@ -6,7 +6,25 @@
     <description>Recent content in Posts on Kur</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 09 Nov 2015 20:47:05 +0800</lastBuildDate><atom:link href="https://www.opskur.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jul 2017 22:03:37 +0800</lastBuildDate><atom:link href="https://www.opskur.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自定义rm命令防止误删除文件</title>
+      <link>https://www.opskur.com/post/alias_rm/</link>
+      <pubDate>Sat, 29 Jul 2017 22:03:37 +0800</pubDate>
+      
+      <guid>https://www.opskur.com/post/alias_rm/</guid>
+      <description>&lt;p&gt;linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>生成整个目录中文件md5值</title>
+      <link>https://www.opskur.com/post/generate_md5/</link>
+      <pubDate>Fri, 28 Jul 2017 21:53:26 +0800</pubDate>
+      
+      <guid>https://www.opskur.com/post/generate_md5/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>利用sysbench做性能测试</title>
       <link>https://www.opskur.com/post/sysbench_performance_test/</link>

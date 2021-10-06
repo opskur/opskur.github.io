@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>利用sysbench做性能测试 - Kur</title>
+  <title>自定义rm命令防止误删除文件 - Kur</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="Kur" /><meta name="description" content="sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。
+<meta name="author" content="Kur" /><meta name="description" content="linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。
 " /><meta name="keywords" content="blog, ops" />
 
 
@@ -27,7 +27,7 @@
 <meta name="generator" content="Hugo 0.83.1 with theme even" />
 
 
-<link rel="canonical" href="https://www.opskur.com/post/sysbench_performance_test/" />
+<link rel="canonical" href="https://www.opskur.com/post/alias_rm/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -40,20 +40,20 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="利用sysbench做性能测试" />
-<meta property="og:description" content="sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。" />
+<meta property="og:title" content="自定义rm命令防止误删除文件" />
+<meta property="og:description" content="linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.opskur.com/post/sysbench_performance_test/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2015-11-09T20:47:05&#43;08:00" />
-<meta property="article:modified_time" content="2015-11-09T20:47:05&#43;08:00" />
+<meta property="og:url" content="https://www.opskur.com/post/alias_rm/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2017-07-29T22:03:37&#43;08:00" />
+<meta property="article:modified_time" content="2017-07-29T22:03:37&#43;08:00" />
 
-<meta itemprop="name" content="利用sysbench做性能测试">
-<meta itemprop="description" content="sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。"><meta itemprop="datePublished" content="2015-11-09T20:47:05&#43;08:00" />
-<meta itemprop="dateModified" content="2015-11-09T20:47:05&#43;08:00" />
-<meta itemprop="wordCount" content="313">
+<meta itemprop="name" content="自定义rm命令防止误删除文件">
+<meta itemprop="description" content="linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。"><meta itemprop="datePublished" content="2017-07-29T22:03:37&#43;08:00" />
+<meta itemprop="dateModified" content="2017-07-29T22:03:37&#43;08:00" />
+<meta itemprop="wordCount" content="284">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="利用sysbench做性能测试"/>
-<meta name="twitter:description" content="sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。"/>
+<meta name="twitter:title" content="自定义rm命令防止误删除文件"/>
+<meta name="twitter:description" content="linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -130,12 +130,12 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">利用sysbench做性能测试</h1>
+      <h1 class="post-title">自定义rm命令防止误删除文件</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2015-11-09 </span>
+        <span class="post-time"> 2017-07-29 </span>
         
-          <span class="more-meta"> 约 313 字 </span>
+          <span class="more-meta"> 约 284 字 </span>
           <span class="more-meta"> 预计阅读 1 分钟 </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> 次阅读 </span>
       </div>
@@ -143,76 +143,72 @@
 
     
     <div class="post-content">
-      <p>sysbench是一款开源的多线程性能测试工具，可以执行CPU/内存/线程/IO/数据库等方面的性能测试。</p>
-<p><strong>下载安装</strong></p>
-<p>可在此处下载安装工具：<a href="https://github.com/akopytov/sysbench">https://github.com/akopytov/sysbench</a></p>
-<p><strong>几个常用的测试</strong></p>
-<ol>
-<li>
-<p>cpu性能测试</p>
+      <p>linux系统中误删文件恢复很麻烦，可以通过alias修改rm别名实现删除文件到回收站。</p>
+<p>创建脚本/usr/local/bin/rm.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nv">_recyc</span><span class="o">=</span><span class="s1">&#39;/data/.recycle&#39;</span>  <span class="c1">#data disk</span>
+<span class="nb">test</span> ! -d  <span class="nv">$_recyc</span> <span class="o">&amp;&amp;</span> mkdir -p <span class="nv">$_recyc</span>
+
+<span class="nv">_datedir</span><span class="o">=</span><span class="sb">`</span>date +<span class="s2">&#34;%Y%m%d%H%M%S&#34;</span><span class="sb">`</span>
+<span class="nv">_dstdir</span><span class="o">=</span><span class="nv">$_recyc</span>/<span class="nv">$_datedir</span>
+
+<span class="nb">test</span> ! -d <span class="nv">$_dstdir</span> <span class="o">&amp;&amp;</span> mkdir -p <span class="nv">$_dstdir</span>
+<span class="k">for</span> _parms in <span class="nv">$*</span>
+<span class="k">do</span>
+        <span class="k">if</span> <span class="o">[</span> -d <span class="nv">$_parms</span> <span class="o">]</span> <span class="o">||</span> <span class="o">[</span> -f <span class="nv">$_parms</span> <span class="o">]</span><span class="p">;</span><span class="k">then</span>
+                <span class="nb">test</span> -d <span class="nv">$_parms</span> <span class="o">&amp;&amp;</span> mv <span class="nv">$_parms</span> <span class="nv">$_dstdir</span>/
+                <span class="nb">test</span> -f <span class="nv">$_parms</span> <span class="o">&amp;&amp;</span> mv <span class="nv">$_parms</span> <span class="nv">$_dstdir</span>/
+        <span class="k">else</span>
+                <span class="c1">#echo &#34;$_parms is not directory or file and canot rm&#34;</span>
+		:
+        <span class="k">fi</span>
+
+<span class="k">done</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>~/.bashrc中更改rm别名设置</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sysbench --test<span class="o">=</span>cpu --cpu-max-prime<span class="o">=</span><span class="m">20000</span> run
+<pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">alias</span> <span class="nv">rm</span><span class="o">=</span><span class="s1">&#39;/usr/local/bin/rm.sh&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>cpu测试主要是进行素数的加法运算，在上面的例子中，指定了最大的素数为 20000，自己可以根据机器cpu的性能来适当调整数值。</p>
-</li>
-<li>
-<p>线程测试</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sysbench --test<span class="o">=</span>threads --num-threads<span class="o">=</span><span class="m">64</span> --thread-yields<span class="o">=</span><span class="m">100</span> --thread-locks<span class="o">=</span><span class="m">2</span> run
-</code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p>磁盘IO性能测试</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sysbench --test<span class="o">=</span>fileio --num-threads<span class="o">=</span><span class="m">16</span> --file-total-size<span class="o">=</span>3G --file-test-mode<span class="o">=</span>rndrw prepare
-sysbench --test<span class="o">=</span>fileio --num-threads<span class="o">=</span><span class="m">16</span> --file-total-size<span class="o">=</span>3G --file-test-mode<span class="o">=</span>rndrw run
-sysbench --test<span class="o">=</span>fileio --num-threads<span class="o">=</span><span class="m">16</span> --file-total-size<span class="o">=</span>3G --file-test-mode<span class="o">=</span>rndrw cleanup
-</code></pre></td></tr></table>
-</div>
-</div><p>上述参数指定了最大创建16个线程，创建的文件总大小为3G，文件读写模式为随机读。</p>
-</li>
-<li>
-<p>内存测试</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">sysbench --test<span class="o">=</span>memory --memory-block-size<span class="o">=</span>8K --memory-total-size<span class="o">=</span>4G run
-</code></pre></td></tr></table>
-</div>
-</div><p>上述参数指定了本次测试整个过程是在内存中传输 4G 的数据量，每个 block 大小为 8K。</p>
-</li>
-</ol>
+</div><p>这样rm文件后会被mv至回收站/data/.recycle中，如果确认要直接删除文件可以使用绝对目录下的rm命令/bin/rm进行删除操作。</p>
+<p>同时回收站文件会越来越多，可以再另写脚本加入crontab定期删除回收站中文件。</p>
     </div>
 
     
 <footer class="post-footer">
       
       <nav class="post-nav">
-        <a class="prev" href="/post/generate_md5/">
-            <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">生成整个目录中文件md5值</span>
-            <span class="prev-text nav-mobile">上一篇</span>
-          </a>
-        <a class="next" href="/post/hello-world/">
-            <span class="next-text nav-default">Hello World</span>
+        
+        <a class="next" href="/post/generate_md5/">
+            <span class="next-text nav-default">生成整个目录中文件md5值</span>
             <span class="next-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>
           </a>
