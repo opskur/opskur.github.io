@@ -36,6 +36,15 @@
     </item>
     
     <item>
+      <title>Delete_garbled_files</title>
+      <link>https://www.opskur.com/post/delete_garbled_files/</link>
+      <pubDate>Tue, 31 May 2016 15:32:25 +0800</pubDate>
+      
+      <guid>https://www.opskur.com/post/delete_garbled_files/</guid>
+      <description>&lt;p&gt;在服务上上传或创建文件时，可能由于编码等原因偶然会生成一些乱码文件，直接使用rm是很难删除的，这种情况可以通过find命令进行删除。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>利用sysbench做性能测试</title>
       <link>https://www.opskur.com/post/sysbench_performance_test/</link>
       <pubDate>Mon, 09 Nov 2015 20:47:05 +0800</pubDate>
